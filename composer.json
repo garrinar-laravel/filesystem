@@ -1,7 +1,7 @@
 {
   "name": "garrinar/filesystem",
   "description": "filesystems",
-  "minimum-stability": "stable",
+  "minimum-stability": "rc",
   "license": "MIT",
   "authors": [
     {
