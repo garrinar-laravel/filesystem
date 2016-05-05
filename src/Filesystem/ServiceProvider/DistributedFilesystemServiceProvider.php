@@ -9,7 +9,7 @@
 namespace Garrinar\Filesystem\ServiceProvider;
 
 use Garrinar\Filesystem\Adapter\DistributedFilesystemAdapter;
-use \Storage;
+use Storage;
 use League\Flysystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 

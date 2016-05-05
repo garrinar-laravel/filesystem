@@ -14,7 +14,7 @@
   },
   "autoload": {
     "psr-4": {
-      "\\Garrinar\\Filesystem\\" : "Filesystem"
+      "\\Garrinar\\Filesystem\\" : "src/"
     }
   }
 }
