@@ -1,0 +1,15 @@
+{
+  "name": "garrinar/filesystem",
+  "description": "filesystems",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Viktor Noyabrodsky",
+      "email": "garrinar@gmail.com"
+    }
+  ],
+  "require": {
+    "illuminate/filesystem": "5.2.x-dev"
+  }
+}
