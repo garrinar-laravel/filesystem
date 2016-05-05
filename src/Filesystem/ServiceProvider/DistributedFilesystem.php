@@ -13,7 +13,7 @@ use Storage;
 use League\Flysystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 
-class DistributedFilesystemServiceProvider extends ServiceProvider
+class DistributedFilesystem extends ServiceProvider
 {
     public function boot()
     {
