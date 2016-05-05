@@ -11,5 +11,10 @@
   ],
   "require-dev": {
     "illuminate/filesystem": "5.2.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "\\Garrinar\\Filesystem\\" : "Filesystem"
+    }
   }
 }

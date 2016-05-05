@@ -6,4 +6,5 @@ use Illuminate\Filesystem\FilesystemAdapter;
 class DistributedFilesystemAdapter extends FilesystemAdapter 
 {
 
+    
 }
