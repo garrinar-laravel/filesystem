@@ -1,7 +1,7 @@
 {
   "name": "garrinar/filesystem",
   "description": "filesystems",
-  "minimum-stability": "rc",
+  "minimum-stability": "dev",
   "license": "MIT",
   "authors": [
     {
@@ -9,7 +9,7 @@
       "email": "garrinar@gmail.com"
     }
   ],
-  "require": {
+  "require-dev": {
     "illuminate/filesystem": "5.2.*"
   }
 }
