@@ -8,14 +8,11 @@
 
 namespace Garrinar\Filesystem\ServiceProvider;
 
-use Garrinar\Filesystem\Adapter\DistributedFilesystemAdapter;
-use Garrinar\Filesystem\Driver\DistributedFilesystemDriver;
-use Illuminate\Filesystem\FilesystemServiceProvider;
-use Illuminate\Filesystem\FilesystemManager as Storage;
-use League\Flysystem\File;
-use League\Flysystem\Filesystem;
 
-class DistributedFilesystemServiceProvider extends FilesystemServiceProvider
+
+use Illuminate\Filesystem\FilesystemServiceProvider;
+
+class DistributedServiceProvider extends FilesystemServiceProvider
 {
     public function boot()
     {
