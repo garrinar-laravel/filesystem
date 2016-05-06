@@ -9,12 +9,16 @@
       "email": "garrinar@gmail.com"
     }
   ],
-  "require-dev": {
+  "require": {
+    "league/flysystem": "1.0.*",
     "illuminate/filesystem": "5.2.*"
+  },
+  "require-dev": {
+
   },
   "autoload": {
     "psr-4": {
-      "Garrinar\\" : "src"
+      "Garrinar\\Filesystem" : "src/Filesystem"
     }
   }
 }
