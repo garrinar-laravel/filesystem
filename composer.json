@@ -11,7 +11,9 @@
   ],
   "require": {
     "league/flysystem": "1.0.*",
-    "illuminate/filesystem": "5.2.*"
+    "illuminate/filesystem": "5.2.x-dev",
+    "illuminate/database": "5.2.x-dev",
+    "illuminate/console": "5.2.x-dev"
   },
   "require-dev": {
 
