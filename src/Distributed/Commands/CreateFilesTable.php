@@ -3,6 +3,7 @@
 namespace Garrinar\Filesystem\Distributed\Commands;
 
 
+use Illuminate\Console\Command;
 use Illuminate\Database\Schema\Blueprint;
 /**
  * Created by PhpStorm.
@@ -17,7 +18,7 @@ class CreateFilesTable extends Command
      *
      * @var string
      */
-    protected $signature = 'DistrFD:table';
+    protected $signature = 'DistributedFS:table';
 
     /**
      * The console command description.

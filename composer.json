@@ -10,13 +10,12 @@
     }
   ],
   "require": {
-    "league/flysystem": "1.0.*",
+    "league/flysystem": "1.0.*"
+  },
+  "require-dev": {
     "illuminate/filesystem": "5.2.x-dev",
     "illuminate/database": "5.2.x-dev",
     "illuminate/console": "5.2.x-dev"
-  },
-  "require-dev": {
-
   },
   "autoload": {
     "psr-4": {

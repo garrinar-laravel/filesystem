@@ -17,12 +17,10 @@ class ServiceProvider extends FilesystemServiceProvider
         if($this->app['config']['filesystem']['distributed']['table']) {
             self::$table = $this->app['config']['filesystem']['distributed']['table'];
         }
-        $model = new Model();
 
         $this->commands([
             CreateFilesTable::class
         ]);
-        //dd($this->app->db->getConnection());
     }
 
     /**
