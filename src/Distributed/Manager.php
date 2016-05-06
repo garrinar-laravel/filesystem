@@ -4,7 +4,7 @@ namespace Garrinar\Filesystem\Distributed;
 
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\Arr;
-use Garrinar\Filesystem\Distributed\Adapter as DistributedAdapter;
+use Garrinar\Filesystem\Distributed\Adapter as LocalAdapter;
 use League\Flysystem\AdapterInterface;
 
 
@@ -12,15 +12,15 @@ use League\Flysystem\AdapterInterface;
 class Manager extends FilesystemManager
 {
     
-    public function createDistributedDriver(array $config)
+    public function createLocalDriver(array $config)
     {
         $permissions = isset($config['permissions']) ? $config['permissions'] : [];
 
         $links = Arr::get($config, 'links') === 'skip'
-            ? DistributedAdapter::SKIP_LINKS
-            : DistributedAdapter::DISALLOW_LINKS;
+            ? LocalAdapter::SKIP_LINKS
+            : LocalAdapter::DISALLOW_LINKS;
 
-        return $this->adapt($this->createDistribitedFilesystem(new DistributedAdapter(
+        return $this->adapt($this->createDistributedFilesystem(new LocalAdapter(
             $config['root'], LOCK_EX, $links, $permissions
         ), $config));
     }
