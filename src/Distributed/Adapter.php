@@ -8,6 +8,7 @@
 
 namespace Garrinar\Filesystem\Distributed;
 
+use Garrinar\Filesystem\Distributed\Model;
 use Illuminate\Support\Collection;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Config;
@@ -16,44 +17,72 @@ use SplFileInfo;
 class Adapter extends Local
 {
 
-    /**
-     * @param $filename
-     * @return \Illuminate\Support\Collection
-     */
-    public function getDistributedPathPrefix($filename)
+
+    public function makeDistributedName($filename)
     {
-        $md5FileName = md5($filename.microtime(true));
-        $prefixes = collect([
-            mb_substr($md5FileName, 0, 3),
-            mb_substr($md5FileName, 3, 3),
-            mb_substr($md5FileName, 6, 3),
+        return mb_substr(md5($filename . microtime(true)), 9);
+    }
+
+    /**
+     * @param $distributedFilename
+     * @return Collection
+     */
+    public function getDistributedPathPrefixCollection($distributedFilename)
+    {
+        return collect([
+            mb_substr($distributedFilename, 0, 3),
+            mb_substr($distributedFilename, 3, 3),
+            mb_substr($distributedFilename, 6, 3),
         ]);
-        return $prefixes;
     }
 
     public function createDistributedPathDirs(Collection $prefixes)
     {
         $dirPath = '';
-        $prefixes->each(function($prefix) use (&$dirPath) {
-            $dirPath .= $this->pathSeparator.$prefix;
-            $fullPath = parent::getPathPrefix().$dirPath;
-            if(!is_dir($fullPath)) {
+        $prefixes->each(function ($prefix) use (&$dirPath) {
+            $dirPath .= $this->pathSeparator . $prefix;
+            $fullPath = parent::getPathPrefix() . $dirPath;
+            if (!is_dir($fullPath)) {
                 @mkdir(parent::getPathPrefix() . $dirPath);
             }
         });
+    }
+
+    public function applyDistributedPathPrefix(Collection $prefixes, $fileName)
+    {
+        return
+            $this->pathSeparator .
+            $prefixes
+                ->push($fileName)
+                ->implode($this->pathSeparator);
+
     }
 
     public function write($path, $contents, Config $config)
     {
         /** @var Adapter $file */
         $oldName = $path;
-        $distributedPathPrefixes = $this->getDistributedPathPrefix($oldName);
+        $newName = $this->makeDistributedName($oldName);
+
+        $distributedPathPrefixes = $this->getDistributedPathPrefixCollection($newName);
+        $distributedPath = $this->pathSeparator.$distributedPathPrefixes->implode($this->pathSeparator).$this->pathSeparator;
         $this->createDistributedPathDirs($distributedPathPrefixes);
+
+        $path = $this->applyDistributedPathPrefix($distributedPathPrefixes, $newName);
+
         $file = parent::write($path, $contents, $config);
-        if(is_array($file)) {
-            $file['name'] = $file['path'];
-            $file['path'] = $distributedPathPrefixes->implode($this->pathSeparator).$this->pathSeparator;
+        if (is_array($file)) {
+            $file['name'] = $newName;
+            $file['path'] = $path;
             $file['old_name'] = $oldName;
+            $file['distributed_path'] = $distributedPath;
+            $model = new Model(collect($file)->only([
+                'path',
+                'name',
+                'old_name',
+                'distributed_path'
+            ]));
+//            dd($model);
             return $file;
         }
         return false;

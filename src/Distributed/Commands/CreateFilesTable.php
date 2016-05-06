@@ -36,9 +36,10 @@ class CreateFilesTable extends Command
     {
         Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('real_name');
             $table->string('name');
-            $table->string('extension');
+            $table->string('old_name');
+            $table->string('path');
+            $table->string('distributed_path');
             $table->timestamps();
         });
     }
