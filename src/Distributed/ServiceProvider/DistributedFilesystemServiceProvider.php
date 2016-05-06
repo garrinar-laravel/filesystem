@@ -10,43 +10,20 @@ namespace Garrinar\Filesystem\ServiceProvider;
 
 
 
+use Garrinar\Filesystem\Distributed\Manager\DistributedManager;
 use Illuminate\Filesystem\FilesystemServiceProvider;
 
 class DistributedServiceProvider extends FilesystemServiceProvider
 {
-    public function boot()
+    /**
+     * Register the filesystem manager.
+     *
+     * @return void
+     */
+    protected function registerManager()
     {
-//        Storage::extend('distributed', function($app, $config) {
-//
-//            $driver = new DistributedFilesystemDriver($config);
-//            return new Filesystem(new DistributedFilesystemAdapter());
-//        });
-    }
-
-    protected function registerFlysystem()
-    {
-        $this->registerManager();
-
-        $this->app->singleton('filesystem.disk', function () {
-            dd($this->app['filesystem']->disk($this->getDefaultDriver()));
-            return $this->app['filesystem']->disk($this->getDefaultDriver());
+        $this->app->singleton('filesystem', function () {
+            return new DistributedManager($this->app);
         });
-
-        $this->app->singleton('filesystem.cloud', function () {
-            return $this->app['filesystem']->disk($this->getCloudDriver());
-        });
-    }
-
-    public function registerDistributedFilesystem()
-    {
-        
-    }
-
-    
-    public function register()
-    {
-        parent::register();
-        
-        $this->registerDistributedFilesystem();
     }
 }
