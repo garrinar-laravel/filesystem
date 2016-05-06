@@ -1,13 +1,13 @@
 <?php
 
-namespace Garrinar\Filesystem\Distributed\Manager;
+namespace Garrinar\Filesystem\Distributed;
 
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\Arr;
-use Garrinar\Filesystem\Distributed\Adapter\Distributed as DistributedAdapter;
+use Garrinar\Filesystem\Distributed\Adapter as DistributedAdapter;
 
 
-class DistributedManager extends FilesystemManager
+class Manager extends FilesystemManager
 {
     
     public function createDistributedDriver(array $config)

@@ -1,13 +1,12 @@
 <?php
 
-namespace Garrinar\Filesystem\Distributed\ServiceProvider;
+namespace Garrinar\Filesystem\Distributed;
 
 
 
-use Garrinar\Filesystem\Distributed\Manager\DistributedManager;
 use Illuminate\Filesystem\FilesystemServiceProvider;
 
-class Distributed extends FilesystemServiceProvider
+class ServiceProvider extends FilesystemServiceProvider
 {
     /**
      * Register the filesystem manager.
@@ -17,7 +16,7 @@ class Distributed extends FilesystemServiceProvider
     protected function registerManager()
     {
         $this->app->singleton('filesystem', function () {
-            return new DistributedManager($this->app);
+            return new Manager($this->app);
         });
     }
 }

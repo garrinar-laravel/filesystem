@@ -6,11 +6,11 @@
  * Time: 12:15
  */
 
-namespace Garrinar\Filesystem\Distributed\Adapter;
+namespace Garrinar\Filesystem\Distributed;
 
 use League\Flysystem\Adapter\Local;
 
-class Distributed extends Local 
+class Adapter extends Local 
 {
 
 }
