@@ -1,6 +1,6 @@
 <?php
 
-namespace Garrinar\Filesystem\ServiceProvider;
+namespace Garrinar\Filesystem\Distributed\ServiceProvider;
 
 
 
