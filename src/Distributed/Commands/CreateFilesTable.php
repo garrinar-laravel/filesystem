@@ -5,6 +5,7 @@ namespace Garrinar\Filesystem\Distributed\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Database\Schema\Blueprint;
+
 /**
  * Created by PhpStorm.
  * User: Garrinar
@@ -18,14 +19,14 @@ class CreateFilesTable extends Command
      *
      * @var string
      */
-    protected $signature = 'DistributedFS:table';
+    protected $signature = 'files:table';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'create files table';
+    protected $description = 'Create a migration for the files database table';
 
     /**
      * Execute the console command.
@@ -34,13 +35,20 @@ class CreateFilesTable extends Command
      */
     public function handle()
     {
-        Schema::create('files', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('old_name');
-            $table->string('path');
-            $table->string('distributed_path');
-            $table->timestamps();
-        });
+        $files = glob(__DIR__ . '/../Migrations/*');
+        natsort($files);
+        $migDir = $this->getLaravel()->basePath() . '/database/Migrations/';
+        if (count($files)) {
+            collect($files)
+                ->each(function ($item) use ($migDir) {
+                    $fileName = date('Y_m_d_His_') . basename($item);
+                    if(copy($item, $migDir . $fileName)) {
+                        echo "Migration $fileName successfully created";
+                    } else {
+                        echo "Could'n create migration $fileName";
+                    }
+                    sleep(1);
+                });
+        }
     }
 }

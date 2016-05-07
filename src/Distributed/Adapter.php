@@ -81,8 +81,8 @@ class Adapter extends Local
                 'name',
                 'old_name',
                 'distributed_path'
-            ]));
-//            dd($model);
+            ])->toArray());
+            $model->save();
             return $file;
         }
         return false;

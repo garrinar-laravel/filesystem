@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -14,9 +13,10 @@ class CreateFilesTable extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('real_name');
             $table->string('name');
-            $table->string('extension');
+            $table->string('old_name');
+            $table->string('path');
+            $table->string('distributed_path');
             $table->timestamps();
         });
     }
