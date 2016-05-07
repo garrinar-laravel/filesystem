@@ -41,8 +41,8 @@ class CreateFilesTable extends Command
         if (count($files)) {
             collect($files)
                 ->each(function ($item) use ($migDir) {
-                    $fileName = date('Y_m_d_His_') . basename($item);
-                    if(copy($item, $migDir . $fileName)) {
+                    $fileName = mb_substr(date('Y_m_d_His_') . basename($item), 0, -1);
+                    if (copy($item, $migDir . $fileName)) {
                         echo "Migration $fileName successfully created";
                     } else {
                         echo "Could'n create migration $fileName";

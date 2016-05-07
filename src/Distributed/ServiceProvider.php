@@ -3,7 +3,6 @@
 namespace Garrinar\Filesystem\Distributed;
 
 
-
 use Garrinar\Filesystem\Distributed\Commands\CreateFilesTable;
 use Garrinar\Filesystem\Distributed\Manager as FilesystemManager;
 use Illuminate\Filesystem\FilesystemServiceProvider;
