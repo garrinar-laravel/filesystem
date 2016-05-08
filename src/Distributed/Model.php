@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
  * @package Garrinar\Filesystem\Distributed
  *
  *
+ * @property string $id
  * @property string $name
  * @property string $old_name
  * @property string $path
