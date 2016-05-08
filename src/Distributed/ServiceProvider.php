@@ -13,10 +13,6 @@ class ServiceProvider extends FilesystemServiceProvider
 
     public function boot()
     {
-        if($this->app['config']['filesystem']['distributed']['table']) {
-            self::$table = $this->app['config']['filesystem']['distributed']['table'];
-        }
-
         $this->commands([
             CreateFilesTable::class
         ]);
@@ -30,7 +26,7 @@ class ServiceProvider extends FilesystemServiceProvider
     protected function registerManager()
     {
         $this->app->singleton('filesystem', function () {
-            return new FilesystemManager($this->app);
+            return new FilesystemManager($this->app, $this->app['config']['filesystem']['distributed']['table'] ?: 'files');
         });
     }
 }

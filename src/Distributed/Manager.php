@@ -8,9 +8,13 @@ use Garrinar\Filesystem\Distributed\Adapter as DistributedAdapter;
 use League\Flysystem\AdapterInterface;
 
 
-
 class Manager extends FilesystemManager
 {
+    public function __construct(\Illuminate\Contracts\Foundation\Application $app)
+    {
+        parent::__construct($app);
+    }
+
 
     public function createLocalDriver(array $config)
     {
@@ -19,11 +23,15 @@ class Manager extends FilesystemManager
             ? DistributedAdapter::SKIP_LINKS
             : DistributedAdapter::DISALLOW_LINKS;
 
-        if(array_key_exists('distributed', $config)) {
-            if($config['distributed']) {
-                return $this->adapt($this->createDistributedFilesystem(new DistributedAdapter(
-                    $config['root'], LOCK_EX, $links, $permissions
-                ), $config));
+        if (array_key_exists('distributed', $config)) {
+            if ($config['distributed']) {
+                return
+                    $this->adapt(
+                        $this->createDistributedFilesystem(
+                            new DistributedAdapter(
+                                $config['root'], LOCK_EX, $links, $permissions
+                            ), $config)
+                    );
             }
         }
 
@@ -31,11 +39,9 @@ class Manager extends FilesystemManager
     }
 
     /**
-     * Create a Flysystem instance with the given adapter.
-     *
-     * @param  \League\Flysystem\AdapterInterface  $adapter
-     * @param  array  $config
-     * @return \League\Flysystem\FlysystemInterface
+     * @param AdapterInterface $adapter
+     * @param array $config
+     * @return Filesystem
      */
     protected function createDistributedFilesystem(AdapterInterface $adapter, array $config)
     {
