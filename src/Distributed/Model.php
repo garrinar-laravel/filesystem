@@ -31,11 +31,15 @@ class Model extends EloquentModel
 
     /** @var Collection $savedFile */
     public $savedFile;
-    
-    
-    public function __construct(Adapter $adapter, array $attributes = [])
+
+
+    public function __construct($adapter = [], array $attributes = [])
     {
-        $this->adapter = $adapter;
+        if ($adapter instanceof Adapter) {
+            $this->adapter = $adapter;
+        } else {
+            $attributes = $adapter;
+        }
         $this->setTable(ServiceProvider::$table);
         parent::__construct($attributes);
     }

@@ -98,7 +98,8 @@ class Adapter extends Local
 
     protected function makeDistributedName()
     {
-        $this->md5FileName = md5($this->getModel()->path . microtime(true));
+        $this->md5FileName =
+            md5($this->getModel()->path . microtime(true)).'.'.collect(explode('.', $this->getModel()->path))->last();
         $this->getModel()->old_name = $this->getModel()->path;
         $this->distributedPathCollection = collect([
             mb_substr($this->md5FileName, 0, 3),
